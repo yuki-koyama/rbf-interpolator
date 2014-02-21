@@ -32,6 +32,9 @@ private:
 
     // for error check
     bool readyForUse;
+
+    // returns f(r)
+    double getRBFValue(double r);
 };
 
 #endif // INTERPOLATOR_H

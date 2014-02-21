@@ -1,5 +1,7 @@
 #include "interpolator.h"
 
+#include <cmath>
+
 using namespace std;
 
 Interpolator::Interpolator() :
@@ -40,5 +42,23 @@ double Interpolator::getInterpolatedValue(vector<double> x)
         return 0.0;
     }
 
-    // todo
+    double result = 0.0;
+    for (int i = 0; i < w.size(); ++ i) {
+        result += w[i] * getRBFValue(xs[i]);
+    }
+
+    return result;
+}
+
+double Interpolator::getRBFValue(double r)
+{
+    double result;
+    switch (functionType) {
+    case GAUSSIAN:
+        result = exp(- pow((epsilon * r), 2.0));
+        break;
+    default:
+        break;
+    }
+    return result;
 }
