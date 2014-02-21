@@ -21,7 +21,8 @@ void Interpolator::resetAll()
 
 void Interpolator::addCenterPoint(double y, vector<double> x)
 {
-    // todo
+    ys.push_back(y);
+    xs.push_back(x);
 
     readyForUse = false;
 }
