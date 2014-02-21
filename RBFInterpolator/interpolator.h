@@ -16,6 +16,7 @@ public:
     double epsilon;
 
     // API
+    void    resetAll();
     void    addCenterPoint(double y, std::vector<double> x);
     void    computeWeights();
     double  getInterpolatedValue(std::vector<double> x);

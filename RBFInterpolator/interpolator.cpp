@@ -9,6 +9,16 @@ Interpolator::Interpolator() :
 {
 }
 
+void Interpolator::resetAll()
+{
+    ys.clear();
+    xs.clear();
+
+    w.clear();
+
+    readyForUse = false;
+}
+
 void Interpolator::addCenterPoint(double y, vector<double> x)
 {
     // todo
