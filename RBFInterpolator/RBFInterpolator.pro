@@ -13,7 +13,7 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+    mainwindow.cpp \
     interpolator.cpp \
     utility.cpp
 
@@ -22,3 +22,5 @@ HEADERS  += mainwindow.h \
     utility.h
 
 FORMS    += mainwindow.ui
+
+INCLUDEPATH += ../include

@@ -2,8 +2,10 @@
 #include "utility.h"
 
 #include <cmath>
+#include <Eigen/Core>
 
 using namespace std;
+using namespace Eigen;
 
 Interpolator::Interpolator() :
     functionType(GAUSSIAN),
