@@ -3,9 +3,12 @@
 
 #include <cmath>
 #include <Eigen/Core>
+#include <Eigen/LU>
 
 using namespace std;
 using namespace Eigen;
+
+extern VectorXd solveLinearSystem(MatrixXd A, VectorXd y);
 
 Interpolator::Interpolator() :
     functionType(GAUSSIAN),
@@ -34,7 +37,25 @@ void Interpolator::addCenterPoint(double y, vector<double> x)
 
 void Interpolator::computeWeights()
 {
-    // todo
+    assert(ys.size() == xs.size());
+
+    int dim = ys.size();
+
+    MatrixXd A = MatrixXd::Zero(dim, dim);
+    VectorXd y = Map<VectorXd>(&ys[0], dim);
+
+    for (int i = 0; i < dim; ++ i) {
+        for (int j = 0; j < dim; ++ j) {
+            A(i, j) = getRBFValue(xs[i], xs[j]);
+        }
+    }
+
+    VectorXd x = solveLinearSystem(A, y);
+
+    w.clear();
+    for (int i = 0; i < dim; ++ i) {
+        w.push_back(x(i));
+    }
 
     readyForUse = true;
 }
@@ -45,8 +66,10 @@ double Interpolator::getInterpolatedValue(vector<double> x)
         return 0.0;
     }
 
+    int    dim    = w.size();
     double result = 0.0;
-    for (int i = 0; i < w.size(); ++ i) {
+
+    for (int i = 0; i < dim; ++ i) {
         result += w[i] * getRBFValue(x, xs[i]);
     }
 
@@ -74,3 +97,8 @@ double Interpolator::getRBFValue(vector<double> xi, vector<double> xj)
     return getRBFValue((xjVec - xiVec).norm());
 }
 
+VectorXd solveLinearSystem(MatrixXd A, VectorXd y)
+{
+    FullPivLU<MatrixXd> lu(A);
+    return lu.solve(y);
+}
