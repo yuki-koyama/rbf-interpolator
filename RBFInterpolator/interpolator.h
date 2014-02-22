@@ -35,6 +35,8 @@ private:
 
     // returns f(r)
     double getRBFValue(double r);
+    // returns f(||xj - xi||)
+    double getRBFValue(std::vector<double> xi, std::vector<double> xj);
 };
 
 #endif // INTERPOLATOR_H
