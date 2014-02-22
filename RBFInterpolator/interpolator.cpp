@@ -45,9 +45,12 @@ double Interpolator::getInterpolatedValue(vector<double> x)
         return 0.0;
     }
 
+    VectorXd xVec = Map<VectorXd>(&x[0], x.size());
+
     double result = 0.0;
     for (int i = 0; i < w.size(); ++ i) {
-        result += w[i] * getRBFValue(Utility::norm(Utility::subtract(xs[i], x)));
+        VectorXd xiVec = Map<VectorXd>(&xs[i][0], xs[i].size());
+        result += w[i] * getRBFValue((xVec - xiVec).norm());
     }
 
     return result;
