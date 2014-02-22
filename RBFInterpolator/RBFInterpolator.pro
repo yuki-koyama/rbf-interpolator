@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    interpolator.cpp
+    interpolator.cpp \
+    utility.cpp
 
 HEADERS  += mainwindow.h \
-    interpolator.h
+    interpolator.h \
+    utility.h
 
 FORMS    += mainwindow.ui

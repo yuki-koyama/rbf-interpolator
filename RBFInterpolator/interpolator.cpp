@@ -1,4 +1,5 @@
 #include "interpolator.h"
+#include "utility.h"
 
 #include <cmath>
 
@@ -44,7 +45,7 @@ double Interpolator::getInterpolatedValue(vector<double> x)
 
     double result = 0.0;
     for (int i = 0; i < w.size(); ++ i) {
-        result += w[i] * getRBFValue(xs[i]);
+        result += w[i] * getRBFValue(Utility::norm(Utility::subtract(xs[i], x)));
     }
 
     return result;
