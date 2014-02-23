@@ -91,6 +91,12 @@ double Interpolator::getRBFValue(double r)
     case GAUSSIAN:
         result = exp(- pow((epsilon * r), 2.0));
         break;
+    case THINPLATESPLINE:
+        result = r * r * log(r);
+        break;
+    case INVERSEQUADRATIC:
+        result = 1.0 / (1.0 + pow((epsilon * r), 2.0));
+        break;
     default:
         break;
     }
