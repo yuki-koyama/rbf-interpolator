@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
     mainwindow.cpp \
     interpolator.cpp \
-    utility.cpp
+    utility.cpp \
+    visualizingwidget.cpp
 
 HEADERS  += mainwindow.h \
     interpolator.h \
-    utility.h
+    utility.h \
+    visualizingwidget.h
 
 FORMS    += mainwindow.ui
 

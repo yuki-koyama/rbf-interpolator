@@ -12,7 +12,7 @@ extern VectorXd solveLinearSystem(MatrixXd A, VectorXd y);
 
 Interpolator::Interpolator() :
     functionType(GAUSSIAN),
-    epsilon(10.0),
+    epsilon(2.0),
     readyForUse(false)
 {
 }
