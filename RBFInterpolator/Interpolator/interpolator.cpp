@@ -1,6 +1,8 @@
 #include "interpolator.h"
 
 #include <cmath>
+#include <fstream>
+#include <sstream>
 #include <Eigen/Core>
 #include <Eigen/LU>
 
@@ -8,6 +10,7 @@ using namespace std;
 using namespace Eigen;
 
 extern VectorXd solveLinearSystem(MatrixXd A, VectorXd y);
+template<class T> extern string toString(T x);
 
 Interpolator::Interpolator() :
     functionType(BIHARMONICSPLINE),
@@ -104,6 +107,42 @@ double Interpolator::getInterpolatedValue(vector<double> x)
     return result;
 }
 
+void Interpolator::exportToCSV(const string& filePath) {
+    if (!readyForUse) {
+        return;
+    }
+
+    ofstream ofs(filePath.c_str());
+    string csv;
+
+    int dim     = xs[0].size();
+    int nPoints = ys.size();
+
+    // the first line: <dim>, <nPoints>, <functionType>, <epsilon>, <useRegularization>, <lambda>
+    csv += toString(dim) + ","
+            + toString(nPoints) + ","
+            + toString(functionType) + ","
+            + toString(epsilon) + ","
+            + toString(useRegularization) + ","
+            + toString(lambda) + "\n";
+
+    // the other lines: <w>, <y>, <x1>, ..., <xn>
+    for (int i = 0; i < nPoints; ++ i) {
+        csv += toString(w[i]) + ",";
+        csv += toString(ys[i]) + ",";
+        for (int j = 0; j < dim; ++ j) {
+            csv += toString(xs[i][j]);
+            if (j != dim - 1) {
+                csv += ",";
+            } else {
+                csv += "\n";
+            }
+        }
+    }
+
+    ofs << csv;
+}
+
 vector<double> Interpolator::getYs() {
     return ys;
 }
@@ -155,4 +194,11 @@ VectorXd solveLinearSystem(MatrixXd A, VectorXd y)
 {
     FullPivLU<MatrixXd> lu(A);
     return lu.solve(y);
+}
+
+template<class T> inline string toString(T x)
+{
+    ostringstream sout;
+    sout << x;
+    return sout.str();
 }

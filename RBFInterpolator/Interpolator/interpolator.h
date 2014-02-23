@@ -27,6 +27,8 @@ public:
     void    computeWeights();
     double  getInterpolatedValue(std::vector<double> x);
 
+    void    exportToCSV(const std::string& filePath);
+
     // getter
     std::vector<double>               getYs();
     std::vector<std::vector<double> > getXs();
