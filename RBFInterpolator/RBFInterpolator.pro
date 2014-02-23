@@ -15,12 +15,10 @@ TEMPLATE = app
 SOURCES += main.cpp\
     mainwindow.cpp \
     interpolator.cpp \
-    utility.cpp \
     visualizingwidget.cpp
 
 HEADERS  += mainwindow.h \
     interpolator.h \
-    utility.h \
     visualizingwidget.h
 
 FORMS    += mainwindow.ui
