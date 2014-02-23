@@ -13,6 +13,8 @@ extern VectorXd solveLinearSystem(MatrixXd A, VectorXd y);
 Interpolator::Interpolator() :
     functionType(GAUSSIAN),
     epsilon(2.0),
+    lambda(0.1),
+    useRegularization(true),
     readyForUse(false)
 {
 }
@@ -41,16 +43,43 @@ void Interpolator::computeWeights()
 
     int dim = ys.size();
 
-    MatrixXd A = MatrixXd::Zero(dim, dim);
+    MatrixXd O = MatrixXd::Zero(dim, dim);
     VectorXd y = Map<VectorXd>(&ys[0], dim);
 
     for (int i = 0; i < dim; ++ i) {
         for (int j = 0; j < dim; ++ j) {
-            A(i, j) = getRBFValue(xs[i], xs[j]);
+            O(i, j) = getRBFValue(xs[i], xs[j]);
         }
     }
 
-    VectorXd x = solveLinearSystem(A, y);
+    MatrixXd A;
+    VectorXd b;
+    if (useRegularization) {
+        MatrixXd O2 = MatrixXd::Zero(dim * 2, dim);
+        for (int i = 0; i < dim; ++ i) {
+            for (int j = 0; j < dim; ++ j) {
+                O2(i, j) = O(i, j);
+            }
+        }
+        double coef = 0.5 * lambda;
+        for (int i = 0; i < dim; ++ i) {
+            O2(i + dim, i) = coef;
+        }
+
+        VectorXd y2 = VectorXd::Zero(dim * 2);
+        for (int i = 0; i < dim; ++ i) {
+            y2(i) = y(i);
+        }
+
+        A = O2.transpose() * O2;
+        b = O2.transpose() * y2;
+    } else {
+        A = O;
+        b = y;
+    }
+
+    VectorXd x = solveLinearSystem(A, b);
+    assert(x.rows() == dim);
 
     w.clear();
     for (int i = 0; i < dim; ++ i) {
@@ -105,6 +134,8 @@ double Interpolator::getRBFValue(double r)
 
 double Interpolator::getRBFValue(vector<double> xi, vector<double> xj)
 {
+    assert (xi.size() == xj.size());
+
     VectorXd xiVec = Map<VectorXd>(&xi[0], xi.size());
     VectorXd xjVec = Map<VectorXd>(&xj[0], xj.size());
 

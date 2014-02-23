@@ -16,6 +16,9 @@ public:
     } functionType;
 
     double epsilon;
+    double lambda;
+
+    bool useRegularization;
 
     // API
     void    resetAll();
