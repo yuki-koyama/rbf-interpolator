@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QFileDialog>
+
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -47,4 +49,10 @@ void MainWindow::on_pushButton_reset_clicked()
 
     ui->widget->repaint();
     repaint();
+}
+
+void MainWindow::on_pushButton_export_clicked()
+{
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Save file"), ".", tr("CSV File(*.csv)"));
+    ui->widget->interpolator.exportToCSV(filePath.toStdString());
 }
