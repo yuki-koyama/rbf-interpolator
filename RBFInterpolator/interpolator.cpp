@@ -122,6 +122,9 @@ double Interpolator::getRBFValue(double r)
         break;
     case THINPLATESPLINE:
         result = r * r * log(r);
+        if (isnan(result)) {
+            result = 0.0;
+        }
         break;
     case INVERSEQUADRATIC:
         result = 1.0 / (1.0 + pow((epsilon * r), 2.0));
