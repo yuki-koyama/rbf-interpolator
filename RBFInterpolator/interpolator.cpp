@@ -11,7 +11,7 @@ using namespace Eigen;
 extern VectorXd solveLinearSystem(MatrixXd A, VectorXd y);
 
 Interpolator::Interpolator() :
-    functionType(GAUSSIAN),
+    functionType(BIHARMONICSPLINE),
     epsilon(2.0),
     lambda(0.1),
     useRegularization(true),
@@ -125,6 +125,9 @@ double Interpolator::getRBFValue(double r)
         break;
     case INVERSEQUADRATIC:
         result = 1.0 / (1.0 + pow((epsilon * r), 2.0));
+        break;
+    case BIHARMONICSPLINE:
+        result = r;
         break;
     default:
         break;
