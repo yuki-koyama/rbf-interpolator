@@ -14,12 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     mainwindow.cpp \
-    interpolator.cpp \
-    visualizingwidget.cpp
+    visualizingwidget.cpp \
+    Interpolator/interpolator.cpp
 
 HEADERS  += mainwindow.h \
-    interpolator.h \
-    visualizingwidget.h
+    visualizingwidget.h \
+    Interpolator/interpolator.h
 
 FORMS    += mainwindow.ui
 

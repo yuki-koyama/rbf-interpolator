@@ -1,5 +1,4 @@
 #include "interpolator.h"
-#include "utility.h"
 
 #include <cmath>
 #include <Eigen/Core>
@@ -111,6 +110,10 @@ vector<double> Interpolator::getYs() {
 
 vector<vector<double> > Interpolator::getXs() {
     return xs;
+}
+
+vector<double> Interpolator::getW() {
+    return w;
 }
 
 double Interpolator::getRBFValue(double r)

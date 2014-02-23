@@ -30,6 +30,7 @@ public:
     // getter
     std::vector<double>               getYs();
     std::vector<std::vector<double> > getXs();
+    std::vector<double>               getW();
 
 private:
 

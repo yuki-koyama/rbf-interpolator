@@ -2,7 +2,7 @@
 #define VISUALIZINGWIDGET_H
 
 #include <QGLWidget>
-#include <interpolator.h>
+#include "Interpolator/interpolator.h"
 
 class VisualizingWidget : public QGLWidget
 {
