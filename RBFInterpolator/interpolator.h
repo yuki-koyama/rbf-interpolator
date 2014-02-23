@@ -21,6 +21,10 @@ public:
     void    computeWeights();
     double  getInterpolatedValue(std::vector<double> x);
 
+    // getter
+    std::vector<double>               getYs();
+    std::vector<std::vector<double> > getXs();
+
 private:
 
     // registered center points

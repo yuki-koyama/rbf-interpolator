@@ -76,6 +76,14 @@ double Interpolator::getInterpolatedValue(vector<double> x)
     return result;
 }
 
+vector<double> Interpolator::getYs() {
+    return ys;
+}
+
+vector<vector<double> > Interpolator::getXs() {
+    return xs;
+}
+
 double Interpolator::getRBFValue(double r)
 {
     double result;
