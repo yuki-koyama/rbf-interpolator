@@ -56,3 +56,12 @@ void MainWindow::on_pushButton_export_clicked()
     QString filePath = QFileDialog::getSaveFileName(this, tr("Save file"), ".", tr("CSV File(*.csv)"));
     ui->widget->interpolator.exportToCSV(filePath.toStdString());
 }
+
+void MainWindow::on_pushButton_import_clicked()
+{
+    QString filePath = QFileDialog::getOpenFileName(this, tr("Open file"), ".", tr("CSV File(*.csv)"));
+    ui->widget->interpolator.importFromCSV(filePath.toStdString());
+
+    ui->widget->repaint();
+    repaint();
+}

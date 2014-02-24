@@ -108,6 +108,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="pushButton_import">
+        <property name="text">
+         <string>Import</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="pushButton_reset">
         <property name="text">
          <string>Reset</string>
