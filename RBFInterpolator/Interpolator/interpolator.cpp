@@ -11,6 +11,7 @@ using namespace Eigen;
 
 extern VectorXd solveLinearSystem(MatrixXd A, VectorXd y);
 template<class T> extern string toString(T x);
+template<class T> extern T fromString(string str);
 
 Interpolator::Interpolator() :
     functionType(BIHARMONICSPLINE),
@@ -121,7 +122,7 @@ void Interpolator::exportToCSV(const string& filePath) {
     // the first line: <dim>, <nPoints>, <functionType>, <epsilon>, <useRegularization>, <lambda>
     csv += toString(dim) + ","
             + toString(nPoints) + ","
-            + toString(functionType) + ","
+            + toString(static_cast<int>(functionType)) + ","
             + toString(epsilon) + ","
             + toString(useRegularization) + ","
             + toString(lambda) + "\n";
@@ -141,6 +142,75 @@ void Interpolator::exportToCSV(const string& filePath) {
     }
 
     ofs << csv;
+}
+
+void Interpolator::importFromCSV(const string &filePath) {
+    ifstream ifs(filePath.c_str());
+    string line;
+
+    resetAll();
+
+    bool first = true;
+    while (getline(ifs, line)) {
+
+        istringstream stream(line);
+        string        token;
+
+        if (first) {
+
+            getline(stream, token, ',');
+            // int dim = fromString<int>(token);
+
+            getline(stream, token, ',');
+            // int nPoints = fromString<int>(token);
+
+            getline(stream, token, ',');
+            int functionType = fromString<int>(token);
+
+            getline(stream, token, ',');
+            double epsilon = fromString<double>(token);
+
+            getline(stream, token, ',');
+            bool useRegularization = fromString<bool>(token);
+
+            getline(stream, token, ',');
+            double lambda = fromString<double>(token);
+
+            this->functionType      = static_cast<FUNCTION_TYPE>(functionType);
+            this->epsilon           = epsilon;
+            this->useRegularization = useRegularization;
+            this->lambda            = lambda;
+
+            first = false;
+            continue;
+        }
+
+        double         wValue;
+        double         yValue;
+        vector<double> xVec;
+
+        int i = 0;
+        while (getline(stream, token, ',')) {
+            double value = fromString<double>(token);
+
+            if (i == 0) {
+                wValue = value;
+            } else if (i == 1) {
+                yValue = value;
+            } else {
+                xVec.push_back(value);
+            }
+            i ++;
+        }
+
+        w.push_back(wValue);
+        ys.push_back(yValue);
+        xs.push_back(xVec);
+    }
+
+    if (w.size() > 0) {
+        readyForUse = true;
+    }
 }
 
 vector<double> Interpolator::getYs() {
@@ -198,7 +268,22 @@ VectorXd solveLinearSystem(MatrixXd A, VectorXd y)
 
 template<class T> inline string toString(T x)
 {
-    ostringstream sout;
-    sout << x;
-    return sout.str();
+    string       str;
+    stringstream ss;
+
+    ss << x;
+    ss >> str;
+
+    return str;
+}
+
+template<class T> inline T fromString(string str)
+{
+    T            x;
+    stringstream ss;
+
+    ss << str;
+    ss >> x;
+
+    return x;
 }

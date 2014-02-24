@@ -28,6 +28,7 @@ public:
     double  getInterpolatedValue(std::vector<double> x);
 
     void    exportToCSV(const std::string& filePath);
+    void    importFromCSV(const std::string& filePath);
 
     // getter
     std::vector<double>               getYs();
