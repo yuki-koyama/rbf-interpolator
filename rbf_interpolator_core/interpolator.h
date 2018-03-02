@@ -23,23 +23,23 @@ public:
 
     // API
     void    resetAll();
-    void    addCenterPoint(double y, std::vector<double> x);
+    void    addCenterPoint(double y, const std::vector<double>& x);
     void    computeWeights();
-    double  getInterpolatedValue(std::vector<double> x);
+    double  getInterpolatedValue(const std::vector<double>& x);
 
     void    exportToCSV(const std::string& filePath);
     void    importFromCSV(const std::string& filePath);
 
     // getter
-    std::vector<double>               getYs();
-    std::vector<std::vector<double> > getXs();
-    std::vector<double>               getW();
+    std::vector<double>              getYs();
+    std::vector<std::vector<double>> getXs();
+    std::vector<double>              getW();
 
 private:
 
     // registered center points
-    std::vector<double>               ys;
-    std::vector<std::vector<double> > xs;
+    std::vector<double>              ys;
+    std::vector<std::vector<double>> xs;
 
     // computed weights
     std::vector<double>               w;
@@ -50,7 +50,7 @@ private:
     // returns f(r)
     double getRBFValue(double r);
     // returns f(||xj - xi||)
-    double getRBFValue(std::vector<double> xi, std::vector<double> xj);
+    double getRBFValue(const std::vector<double>& xi, const std::vector<double>& xj);
 };
 
 #endif // INTERPOLATOR_H

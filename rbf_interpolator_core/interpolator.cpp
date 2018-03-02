@@ -1,5 +1,4 @@
 #include "interpolator.h"
-
 #include <cmath>
 #include <fstream>
 #include <sstream>
@@ -9,7 +8,7 @@
 using namespace std;
 using namespace Eigen;
 
-extern VectorXd solveLinearSystem(MatrixXd A, VectorXd y);
+extern VectorXd solveLinearSystem(const MatrixXd& A, const VectorXd& y);
 template<class T> extern string toString(T x);
 template<class T> extern T fromString(string str);
 
@@ -32,7 +31,7 @@ void Interpolator::resetAll()
     readyForUse = false;
 }
 
-void Interpolator::addCenterPoint(double y, vector<double> x)
+void Interpolator::addCenterPoint(double y, const vector<double>& x)
 {
     ys.push_back(y);
     xs.push_back(x);
@@ -92,7 +91,7 @@ void Interpolator::computeWeights()
     readyForUse = true;
 }
 
-double Interpolator::getInterpolatedValue(vector<double> x)
+double Interpolator::getInterpolatedValue(const vector<double>& x)
 {
     if (!readyForUse) {
         return 0.0;
@@ -250,17 +249,17 @@ double Interpolator::getRBFValue(double r)
     return result;
 }
 
-double Interpolator::getRBFValue(vector<double> xi, vector<double> xj)
+double Interpolator::getRBFValue(const vector<double>& xi, const vector<double>& xj)
 {
     assert (xi.size() == xj.size());
 
-    VectorXd xiVec = Map<VectorXd>(&xi[0], xi.size());
-    VectorXd xjVec = Map<VectorXd>(&xj[0], xj.size());
+    const VectorXd xiVec = Map<const VectorXd>(&xi[0], xi.size());
+    const VectorXd xjVec = Map<const VectorXd>(&xj[0], xj.size());
 
     return getRBFValue((xjVec - xiVec).norm());
 }
 
-VectorXd solveLinearSystem(MatrixXd A, VectorXd y)
+VectorXd solveLinearSystem(const MatrixXd& A, const VectorXd& y)
 {
     FullPivLU<MatrixXd> lu(A);
     return lu.solve(y);

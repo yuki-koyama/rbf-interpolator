@@ -1,14 +1,15 @@
 #include "visualizingwidget.h"
+#include <cassert>
 #include <QVector3D>
 #include <QPaintEvent>
-#include <cassert>
+#include <QPainter>
 
 using namespace std;
 
 extern QColor getHeatMapColor(float x);
 
 VisualizingWidget::VisualizingWidget(QWidget *parent) :
-    QGLWidget(parent)
+    QOpenGLWidget(parent)
 {
     background   = QBrush(QColor(0xff, 0xff, 0xff));
     circleBrush  = QBrush(QColor(0x00, 0x00, 0x00));

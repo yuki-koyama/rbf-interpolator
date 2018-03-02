@@ -1,10 +1,12 @@
 #ifndef VISUALIZINGWIDGET_H
 #define VISUALIZINGWIDGET_H
 
-#include <QGLWidget>
-#include "Interpolator/interpolator.h"
+#include <QOpenGLWidget>
+#include <QBrush>
+#include <QPen>
+#include "interpolator.h"
 
-class VisualizingWidget : public QGLWidget
+class VisualizingWidget : public QOpenGLWidget
 {
     Q_OBJECT
 public:
