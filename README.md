@@ -1,15 +1,13 @@
 # What's this?
 
-This is an implementation of RBF interpolation. Given some centroids, this program can calculate their weights for interpolation. It also supports a simple "regularization".
+This is an implementation of RBF (radial basis function) interpolation. Given some centroids, this program calculates their "weights" for enabling interpolation. It also supports a simple regularization, which is useful for avoiding overfitting with noisy data.
 
 # Files
 
-## Main Class
+## Main codes
 
 * RBFInterpolator/Interpolator/interpolator.h
 * RBFInterpolator/Interpolator/interpolator.cpp
-
-These are the core implementation of RBF interpolation function.
 
 ## Others
 
@@ -17,11 +15,12 @@ Other codes include a GUI system for testing the function.
 
 # Dependencies
 
-The main class requires *Eigen*, and the test GUI system requires *Qt*.
+- Eigen
+- Qt5 (optional for a visual demo)
 
 # How to use
 
-Please see the codes for yourself.
+Please see the codes by yourself.
 
 # License
 
@@ -29,6 +28,6 @@ MIT license.
 
 # Contact Information
 
-Yuki Koyama <koyama@is.s.u-tokyo.ac.jp>
+Yuki Koyama <yuki@koyama.xyz>
 
 
