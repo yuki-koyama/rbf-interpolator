@@ -3,7 +3,8 @@
 
 #include <vector>
 
-namespace rbf {
+namespace rbf
+{
    
 enum class FunctionType
 {
@@ -19,10 +20,10 @@ public:
     Interpolator(FunctionType functionType = FunctionType::BiharmonicSpline, const double epsilon = 2.0);
 
     // API
-    void    resetAll();
-    void    addCenterPoint(const double y, const std::vector<double>& x);
-    void    computeWeights(const bool useRegularization = false, const double lambda = 0.1);
-    double  getInterpolatedValue(const std::vector<double>& x) const;
+    void   reset();
+    void   addCenterPoint(const double y, const std::vector<double>& x);
+    void   computeWeights(const bool useRegularization = false, const double lambda = 0.1);
+    double getInterpolatedValue(const std::vector<double>& x) const;
 
     // Getter methods
     const std::vector<double>&              getYs() const { return ys; }
@@ -43,9 +44,6 @@ private:
 
     // Weights
     std::vector<double>              w;
-
-    // Used for error check
-    bool readyForUse;
 
     // Returns f(r)
     double getRbfValue(const double r) const;

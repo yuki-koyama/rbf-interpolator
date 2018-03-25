@@ -38,7 +38,7 @@ void MainWindow::on_pushButton_add_clicked()
 
 void MainWindow::on_pushButton_reset_clicked()
 {
-    ui->widget->interpolator.resetAll();
+    ui->widget->interpolator.reset();
 
     ui->lineEdit_x1->clear();
     ui->lineEdit_x2->clear();

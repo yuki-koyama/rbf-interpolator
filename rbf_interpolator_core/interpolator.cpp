@@ -9,32 +9,28 @@ using Eigen::MatrixXd;
 using Eigen::FullPivLU;
 using Eigen::Map;
 
-namespace rbf {
+namespace rbf
+{
 
 extern VectorXd solveLinearSystem(const MatrixXd& A, const VectorXd& y);
 
 Interpolator::Interpolator(FunctionType functionType, const double epsilon) :
     functionType(functionType),
-    epsilon(epsilon),
-    readyForUse(false)
+    epsilon(epsilon)
 {
 }
 
-void Interpolator::resetAll()
+void Interpolator::reset()
 {
     ys.clear();
     xs.clear();
     w.clear();
-
-    readyForUse = false;
 }
 
 void Interpolator::addCenterPoint(const double y, const vector<double>& x)
 {
     ys.push_back(y);
     xs.push_back(x);
-
-    readyForUse = false;
 }
 
 void Interpolator::computeWeights(const bool useRegularization, const double lambda)
@@ -80,12 +76,14 @@ void Interpolator::computeWeights(const bool useRegularization, const double lam
 
         A = O2.transpose() * O2;
         b = O2.transpose() * y2;
-    } else {
+    }
+    else
+    {
         A = O;
         b = y;
     }
 
-    VectorXd x = solveLinearSystem(A, b);
+    const VectorXd x = solveLinearSystem(A, b);
     assert(x.rows() == dim);
 
     w.resize(dim);
@@ -93,19 +91,14 @@ void Interpolator::computeWeights(const bool useRegularization, const double lam
     {
         w[i] = x(i);
     }
-
-    readyForUse = true;
 }
 
 double Interpolator::getInterpolatedValue(const vector<double>& x) const
 {
-    if (!readyForUse)
-    {
-        return 0.0;
-    }
-
-    const int dim = w.size();
+    assert(w.size() == xs.size());
     
+    const int dim = w.size();
+
     double result = 0.0;
     for (int i = 0; i < dim; ++ i)
     {
