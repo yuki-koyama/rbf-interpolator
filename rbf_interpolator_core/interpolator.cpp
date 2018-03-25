@@ -3,8 +3,11 @@
 #include <Eigen/Core>
 #include <Eigen/LU>
 
-using namespace std;
-using namespace Eigen;
+using std::vector;
+using Eigen::VectorXd;
+using Eigen::MatrixXd;
+using Eigen::FullPivLU;
+using Eigen::Map;
 
 namespace rbf {
 

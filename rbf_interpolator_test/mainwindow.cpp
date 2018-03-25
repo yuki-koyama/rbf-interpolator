@@ -1,9 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
 #include <QFileDialog>
 
-using namespace std;
+using std::vector;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

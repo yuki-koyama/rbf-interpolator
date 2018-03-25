@@ -4,7 +4,7 @@
 #include <QPaintEvent>
 #include <QPainter>
 
-using namespace std;
+using std::vector;
 
 extern QColor getHeatMapColor(float x);
 
@@ -76,8 +76,8 @@ void VisualizingWidget::paintEvent(QPaintEvent *event)
 }
 
 QColor getHeatMapColor(float x) {
-    x = min(1.0f, x);
-    x = max(0.0f, x);
+    x = std::min(1.0f, x);
+    x = std::max(0.0f, x);
 
     QVector3D r(1.0f, 0.0f, 0.0f);
     QVector3D y(1.0f, 1.0f, 0.0f);
