@@ -10,11 +10,9 @@ namespace RBF {
 
 extern VectorXd solveLinearSystem(const MatrixXd& A, const VectorXd& y);
 
-Interpolator::Interpolator() :
-    functionType(FunctionType::BiharmonicSpline),
-    epsilon(2.0),
-    lambda(0.1),
-    useRegularization(true),
+Interpolator::Interpolator(FunctionType functionType, const double epsilon) :
+    functionType(functionType),
+    epsilon(epsilon),
     readyForUse(false)
 {
 }
@@ -36,7 +34,7 @@ void Interpolator::addCenterPoint(const double y, const vector<double>& x)
     readyForUse = false;
 }
 
-void Interpolator::computeWeights()
+void Interpolator::computeWeights(const bool useRegularization, const double lambda)
 {
     assert(ys.size() == xs.size());
 
