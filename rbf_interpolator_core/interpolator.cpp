@@ -11,7 +11,7 @@ namespace RBF {
 extern VectorXd solveLinearSystem(const MatrixXd& A, const VectorXd& y);
 
 Interpolator::Interpolator() :
-    functionType(BIHARMONICSPLINE),
+    functionType(FunctionType::BiharmonicSpline),
     epsilon(2.0),
     lambda(0.1),
     useRegularization(true),
@@ -119,24 +119,24 @@ double Interpolator::getRBFValue(const double r) const
     double result;
     switch (functionType)
     {
-    case GAUSSIAN:
-        result = exp(- pow((epsilon * r), 2.0));
-        break;
-    case THINPLATESPLINE:
-        result = r * r * log(r);
-        if (isnan(result))
-        {
-            result = 0.0;
-        }
-        break;
-    case INVERSEQUADRATIC:
-        result = 1.0 / (1.0 + pow((epsilon * r), 2.0));
-        break;
-    case BIHARMONICSPLINE:
-        result = r;
-        break;
-    default:
-        break;
+        case FunctionType::Gaussian:
+            result = exp(- pow((epsilon * r), 2.0));
+            break;
+        case FunctionType::ThinPlateSpline:
+            result = r * r * log(r);
+            if (isnan(result))
+            {
+                result = 0.0;
+            }
+            break;
+        case FunctionType::InverseQuadratic:
+            result = 1.0 / (1.0 + pow((epsilon * r), 2.0));
+            break;
+        case FunctionType::BiharmonicSpline:
+            result = r;
+            break;
+        default:
+            break;
     }
     return result;
 }

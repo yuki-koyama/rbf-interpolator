@@ -5,18 +5,21 @@
 
 namespace RBF {
    
+enum class FunctionType
+{
+    Gaussian,         // f(r) = exp(-(epsilon*r)^2)
+    ThinPlateSpline,  // f(r) = (r^2)*log(r)
+    InverseQuadratic, // f(r) = (1 + (epsilon*r)^2)^(-1)
+    BiharmonicSpline, // f(r) = r
+};
+
 class Interpolator
 {
 public:
     Interpolator();
 
-    // function definition
-    enum FUNCTION_TYPE {
-        GAUSSIAN,         // f(r) = exp(-(epsilon*r)^2)
-        THINPLATESPLINE,  // f(r) = (r^2)*log(r)
-        INVERSEQUADRATIC, // f(r) = (1 + (epsilon*r)^2)^(-1)
-        BIHARMONICSPLINE, // f(r) = r
-    } functionType;
+    // Function type
+    FunctionType functionType;
 
     double epsilon;
     double lambda;
