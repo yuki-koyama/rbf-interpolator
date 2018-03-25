@@ -3,6 +3,8 @@
 
 #include <vector>
 
+namespace RBF {
+   
 class Interpolator
 {
 public:
@@ -49,5 +51,7 @@ private:
     // returns f(||xj - xi||)
     double getRBFValue(const std::vector<double>& xi, const std::vector<double>& xj) const;
 };
+
+}
 
 #endif // INTERPOLATOR_H

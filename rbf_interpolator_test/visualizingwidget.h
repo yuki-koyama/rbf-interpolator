@@ -12,7 +12,7 @@ class VisualizingWidget : public QOpenGLWidget
 public:
     explicit VisualizingWidget(QWidget *parent = 0);
 
-    Interpolator interpolator;
+    RBF::Interpolator interpolator;
     
 signals:
 

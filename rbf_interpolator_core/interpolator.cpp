@@ -6,6 +6,8 @@
 using namespace std;
 using namespace Eigen;
 
+namespace RBF {
+
 extern VectorXd solveLinearSystem(const MatrixXd& A, const VectorXd& y);
 
 Interpolator::Interpolator() :
@@ -155,3 +157,4 @@ VectorXd solveLinearSystem(const MatrixXd& A, const VectorXd& y)
     return lu.solve(y);
 }
 
+}
