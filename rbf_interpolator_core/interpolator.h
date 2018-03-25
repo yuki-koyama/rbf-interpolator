@@ -3,7 +3,7 @@
 
 #include <vector>
 
-namespace RBF {
+namespace rbf {
    
 enum class FunctionType
 {
@@ -48,9 +48,10 @@ private:
     bool readyForUse;
 
     // Returns f(r)
-    double getRBFValue(const double r) const;
+    double getRbfValue(const double r) const;
+    
     // Returns f(||xj - xi||)
-    double getRBFValue(const std::vector<double>& xi, const std::vector<double>& xj) const;
+    double getRbfValue(const std::vector<double>& xi, const std::vector<double>& xj) const;
 };
 
 }

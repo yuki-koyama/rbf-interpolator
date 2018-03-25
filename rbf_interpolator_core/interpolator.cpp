@@ -6,7 +6,7 @@
 using namespace std;
 using namespace Eigen;
 
-namespace RBF {
+namespace rbf {
 
 extern VectorXd solveLinearSystem(const MatrixXd& A, const VectorXd& y);
 
@@ -47,7 +47,7 @@ void Interpolator::computeWeights(const bool useRegularization, const double lam
     {
         for (int j = 0; j < dim; ++ j)
         {
-            O(i, j) = getRBFValue(xs[i], xs[j]);
+            O(i, j) = getRbfValue(xs[i], xs[j]);
         }
     }
 
@@ -106,13 +106,13 @@ double Interpolator::getInterpolatedValue(const vector<double>& x) const
     double result = 0.0;
     for (int i = 0; i < dim; ++ i)
     {
-        result += w[i] * getRBFValue(x, xs[i]);
+        result += w[i] * getRbfValue(x, xs[i]);
     }
 
     return result;
 }
 
-double Interpolator::getRBFValue(const double r) const
+double Interpolator::getRbfValue(const double r) const
 {
     double result;
     switch (functionType)
@@ -139,14 +139,14 @@ double Interpolator::getRBFValue(const double r) const
     return result;
 }
 
-double Interpolator::getRBFValue(const vector<double>& xi, const vector<double>& xj) const
+double Interpolator::getRbfValue(const vector<double>& xi, const vector<double>& xj) const
 {
     assert (xi.size() == xj.size());
 
     const VectorXd xiVec = Map<const VectorXd>(&xi[0], xi.size());
     const VectorXd xjVec = Map<const VectorXd>(&xj[0], xj.size());
 
-    return getRBFValue((xjVec - xiVec).norm());
+    return getRbfValue((xjVec - xiVec).norm());
 }
 
 VectorXd solveLinearSystem(const MatrixXd& A, const VectorXd& y)
