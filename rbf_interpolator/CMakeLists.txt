@@ -5,5 +5,5 @@ find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
 
 file(GLOB files *.cpp *.h)
-add_library(rbf_interpolator_core STATIC ${files})
-target_link_libraries(rbf_interpolator_core)
+add_library(rbf_interpolator STATIC ${files})
+target_link_libraries(rbf_interpolator)
