@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(rbf_interpolator)
+project(rbf_interpolator CXX)
 
 find_package(Qt5 COMPONENTS OpenGL Widgets)
 
