@@ -1,3 +1,9 @@
+# Deprecated
+
+This repository is no longer maintained and the RBF Interpolation function is now included in the mathtoolbox library: https://github.com/yuki-koyama/mathtoolbox , so please use the new library.
+
+---
+
 # RBF Interpolator
 
 This is a C++ implementation of RBF (radial basis function) interpolation. Given some centroids, this program calculates their "weights" for interpolation. It also supports regularization, which is useful for avoiding overfitting with noisy data.
